@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dokumenty</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+  body {
+    background: linear-gradient(135deg, #001f4d, #004080);
+    color: #f0f4f8;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 20px 40px;
+    user-select: none;
+  }
+  h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.6rem;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 8px rgba(0, 116, 217, 0.9);
+  }
+
+  #searchInput {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto 28px auto;
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 2px solid #0074d9;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e6f0ff;
+    background: rgba(255 255 255 / 0.12);
+    transition: border-color 0.3s ease, background 0.3s ease;
+    outline-offset: 2px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #searchInput:focus {
+    border-color: #00d9ff;
+    background: rgba(255 255 255 / 0.2);
+    box-shadow: 0 0 10px #00d9ff;
+  }
+
+  .entry {
+    background: rgba(0, 116, 217, 0.15);
+    border: 2px solid #0091ff;
+    border-radius: 14px;
+    padding: 22px 28px 28px 28px;
+    margin-bottom: 28px;
+    box-shadow:
+      0 10px 25px rgba(0, 116, 217, 0.3),
+      inset 0 0 10px rgba(0, 255, 255, 0.2);
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .entry:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 15px 40px rgba(0, 140, 255, 0.5),
+      inset 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+  label {
+    display: block;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #cce7ff;
+    user-select: text;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 18px;
+    margin-top: 6px;
+    border-radius: 12px;
+    border: 2px solid #0074d9;
+    background: rgba(255 255 255 / 0.12);
+    color: #e6f0ff;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    outline-offset: 2px;
+    box-sizing: border-box;
+  }
+  input[type="text"]:focus {
+    border-color: #00d9ff;
+    background: rgba(255 255 255 / 0.2);
+    box-shadow: 0 0 10px #00d9ff;
+  }
+  input[type="text"]:disabled {
+    background: rgba(255 255 255 / 0.05);
+    color: #8fb6d8;
+    border-color: #00509e;
+    cursor: default;
+  }
+  button {
+    margin-top: 18px;
+    background: linear-gradient(90deg, #0074d9, #00bfff);
+    border: none;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    box-shadow:
+      0 4px 15px rgba(0, 180, 255, 0.7);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:hover:not(:disabled),
+  button:focus:not(:disabled) {
+    background: linear-gradient(90deg, #00aaff, #0077ff);
+    box-shadow:
+      0 6px 20px rgba(0, 220, 255, 0.9);
+    transform: translateY(-2px);
+  }
+  button:disabled {
+    background: #004880;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.7;
+  }
+  button.delete-btn {
+    background: #e53e3e;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.7);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.delete-btn:hover,
+  button.delete-btn:focus {
+    background: #ff4f4f;
+    box-shadow: 0 6px 18px rgba(255, 79, 79, 0.9);
+    transform: translateY(-2px);
+  }
+
+  /* Dostosowanie do ekranów dotykowych */
+  @media (hover: none) {
+    .entry:hover {
+      transform: none;
+      box-shadow:
+        0 10px 25px rgba(0, 116, 217, 0.3),
+        inset 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+    button:hover, button:focus {
+      transform: none;
+      box-shadow:
+        0 4px 15px rgba(0, 180, 255, 0.7);
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Dokumenty</h1>
+
+<input id="searchInput" type="text" placeholder="Szukaj w dokumentach..." autocomplete="off" />
+
+<div id="entriesContainer"></div>
+
+<script>
+const STORAGE_KEY = 'prosteDane';
+
+function loadEntries() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveEntries(entries) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+}
+
+function createEntryElement(data = {}, index = null) {
+  const container = document.createElement('div');
+  container.className = 'entry';
+
+  const labelInfo = document.createElement('label');
+  labelInfo.textContent = 'Informacja:';
+  const inputInfo = document.createElement('input');
+  inputInfo.type = 'text';
+  inputInfo.value = data.info || '';
+  labelInfo.appendChild(inputInfo);
+
+  const labelUrl = document.createElement('label');
+  labelUrl.textContent = 'Adres WWW:';
+  const inputUrl = document.createElement('input');
+  inputUrl.type = 'text';
+  inputUrl.value = data.url || '';
+  labelUrl.appendChild(inputUrl);
+
+  const btnSave = document.createElement('button');
+  btnSave.textContent = 'Zapisz';
+  btnSave.onclick = () => {
+    const info = inputInfo.value.trim();
+    const url = inputUrl.value.trim();
+    if (!info) {
+      alert('Podaj informację');
+      return;
+    }
+
+    let entries = loadEntries();
+
+    if (index === null) {
+      entries.push({ info, url });
+    } else {
+      entries[index] = { info, url };
+    }
+
+    saveEntries(entries);
+
+    btnSave.disabled = true;
+    btnSave.textContent = 'Zapisano';
+    inputInfo.disabled = true;
+    inputUrl.disabled = true;
+
+    // Dodaj przycisk usuń, jeśli go jeszcze nie ma (dla nowo zapisanego)
+    if (!container.querySelector('button.delete-btn')) {
+      const btnDelete = createDeleteButton(index !== null ? index : entries.length - 1, container);
+      container.appendChild(btnDelete);
+    }
+
+    if (index === null) {
+      addNewEntry();
+    }
+    filterEntries();
+  };
+
+  container.appendChild(labelInfo);
+  container.appendChild(inputInfo);
+  container.appendChild(labelUrl);
+  container.appendChild(inputUrl);
+  container.appendChild(btnSave);
+
+  // Przycisk usuń (jeśli to istniejący wpis)
+  if (index !== null) {
+    const btnDelete = createDeleteButton(index, container);
+    container.appendChild(btnDelete);
+  }
+
+  return container;
+}
+
+function createDeleteButton(index, container) {
+  const btnDelete = document.createElement('button');
+  btnDelete.textContent = 'Usuń';
+  btnDelete.className = 'delete-btn';
+  btnDelete.onclick = () => {
+    if (confirm('Na pewno usunąć ten wpis?')) {
+      let entries = loadEntries();
+      entries.splice(index, 1);
+      saveEntries(entries);
+      container.remove();
+      refreshEntries();
+      filterEntries();
+    }
+  };
+  return btnDelete;
+}
+
+function addNewEntry() {
+  const container = document.getElementById('entriesContainer');
+  const el = createEntryElement();
+  container.appendChild(el);
+}
+
+function refreshEntries() {
+  const container = document.getElementById('entriesContainer');
+  const entries = loadEntries();
+  container.innerHTML = '';
+  entries.forEach((entry, i) => {
+    const el = createEntryElement(entry, i);
+    el.querySelector('button').disabled = true;
+    el.querySelector('button').textContent = 'Zapisano';
+    el.querySelectorAll('input').forEach(inp => inp.disabled = true);
+    container.appendChild(el);
+  });
+  addNewEntry();
+}
+
+function filterEntries() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const container = document.getElementById('entriesContainer');
+  const entries = container.querySelectorAll('.entry');
+
+  entries.forEach((entry) => {
+    const inputs = entry.querySelectorAll('input[type=text]');
+    const info = inputs[0]?.value.toLowerCase() || '';
+    const url = inputs[1]?.value.toLowerCase() || '';
+
+    if (info.includes(query) || url.includes(query) || query === '') {
+      entry.style.display = 'block';
+    } else {
+      entry.style.display = 'none';
+    }
+  });
+}
+
+// inicjalizacja
+document.getElementById('searchInput').addEventListener('input', filterEntries);
+refreshEntries();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weryfikacja wyposażenia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --granat: #001F3F;
+      --niebieski: #007BFF;
+      --bialy: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--granat);
+      color: var(--bialy);
+      padding: 20px;
+    }
+
+    h2 {
+      background-color: var(--niebieski);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    section {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      background-color: #ffffff10;
+      color: var(--bialy);
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #cccccc;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-right: 10px;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+    }
+
+    button {
+      width: 100%;
+      background-color: var(--niebieski);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Weryfikacja wyposażenia</h2>
+  <section>
+    <label>Marka: <input type="text" id="marka" placeholder="Wpisz markę..." /></label>
+    <label>Model: <input type="text" id="model" placeholder="Wpisz model..." /></label>
+    <label>Wersja: <input type="text" id="wersja" placeholder="Wpisz wersję..." /></label>
+    <label>Generacja: <input type="text" id="generacja" placeholder="Wpisz generację..." /></label>
+  </section>
+
+  <h2>Audio i multimedia</h2>
+  <section>
+    <label>Producent nagłośnienia: <input type="text" id="naglosnienie" placeholder="Producent audio..." /></label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="aux" /> AUX</label>
+      <label><input type="checkbox" id="usb" /> USB</label>
+      <label><input type="checkbox" id="carplay" /> Apple CarPlay</label>
+    </div>
+  </section>
+
+  <h2>Komfort</h2>
+  <section class="checkbox-group">
+    <label><input type="checkbox" id="tap_material" /> Tapicerka materiałowa</label>
+    <label><input type="checkbox" id="tap_skorzana" /> Tapicerka skórzana</label>
+    <label><input type="checkbox" id="tap_welurowa" /> Tapicerka welurowa</label>
+    <label><input type="checkbox" id="tap_polskory" /> Półskóry</label>
+    <label><input type="checkbox" id="tap_alcantara" /> Alcantara</label>
+  </section>
+
+  <h2>Auta elektryczne</h2>
+  <section class="checkbox-group">
+    <label><input type="checkbox" id="odzysk" /> System odzyskiwania energii</label>
+    <label><input type="checkbox" id="szybkie_ladowanie" /> Funkcja szybkiego ładowania</label>
+    <label><input type="checkbox" id="kabel" /> Kabel do ładowania</label>
+  </section>
+
+  <h2>Bezpieczeństwo</h2>
+  <section class="checkbox-group">
+    <label><input type="checkbox" id="airbag_kierowca" /> Poduszka powietrzna kierowcy</label>
+    <label><input type="checkbox" id="airbag_pasażer" /> Poduszka powietrzna pasażera</label>
+    <label><input type="checkbox" id="airbag_kolana" /> Poduszka powietrzna kierowcy-kolanowa</label>
+  </section>
+
+  <h2>Oświetlenie zewnętrzne</h2>
+  <section>
+    <label>Rodzaj reflektorów:
+      <select id="reflektory">
+        <option>Lampy zwykłe</option>
+        <option>Ksenon</option>
+        <option>Bi-Ksenon</option>
+        <option>LED</option>
+        <option>Światła laserowe</option>
+        <option>Matrix</option>
+      </select>
+    </label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="przeciwmgielne" /> Światła przeciwmgielne</label>
+      <label><input type="checkbox" id="dzien_led" /> Światła do jazdy dziennej LED</label>
+    </div>
+  </section>
+
+  <h2>Wspomaganie kierowcy</h2>
+  <section class="checkbox-group">
+    <label><input type="checkbox" id="czujniki_przod" /> Czujniki parkowania przód</label>
+    <label><input type="checkbox" id="czujniki_tyl" /> Czujniki parkowania tył</label>
+    <label><input type="checkbox" id="park_assist" /> Park Assist</label>
+    <label><input type="checkbox" id="kamera_przod" /> Kamera przód</label>
+  </section>
+
+  <h2>Opony i zawieszenie</h2>
+  <section>
+    <label>Rodzaj opon:
+      <select id="opony">
+        <option>Letnie</option>
+        <option>Zimowe</option>
+        <option>Całoroczne</option>
+      </select>
+    </label>
+    <label>Czujniki w oponach:
+      <select id="czujniki_opony">
+        <option>TAK</option>
+        <option>NIE</option>
+      </select>
+    </label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" id="zawieszenie_reg" /> Zawieszenie regulowane</label>
+      <label><input type="checkbox" id="zawieszenie_sport" /> Zawieszenie sportowe</label>
+    </div>
+  </section>
+
+  <h2>Wyposażenie dodatkowe</h2>
+  <section class="checkbox-group">
+    <label><input type="checkbox" id="wydech" /> Wydech sportowy</label>
+    <label><input type="checkbox" id="hak" /> Hak</label>
+  </section>
+
+  <h2>Inne</h2>
+  <section>
+    <label>Wyposażenie dodatkowe: <textarea id="inne" placeholder="Dodatkowe wyposażenie..."></textarea></label>
+  </section>
+
+  <h2>Kody wyposażenia dodatkowego</h2>
+  <section>
+    <label>Kody: <textarea id="kody" placeholder="Kody wyposażenia..."></textarea></label>
+  </section>
+
+  <section>
+    <button onclick="zapiszDoHTML()">💾 Zapisz do HTML</button>
+  </section>
+
+  <script>
+  function zapiszDoHTML() {
+    const style = `
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #001F3F;
+        color: #ffffff;
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+      h2 {
+        background-color: #007BFF;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+      }
+      section {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
+      }
+      p {
+        margin: 8px 0;
+      }
+      .label {
+        font-weight: 600;
+      }
+    `;
+
+    const fontLink = document.querySelector("link[href*='fonts']").outerHTML;
+
+    const getValue = (id) => {
+      const el = document.getElementById(id);
+      return el ? el.value || (el.checked ? "TAK" : "NIE") : "";
+    };
+
+    const checked = (id) => {
+      const el = document.getElementById(id);
+      return el && el.checked ? "✓ " + el.parentElement.innerText.trim() : "";
+    };
+
+    const selectText = (id) => {
+      const el = document.getElementById(id);
+      return el ? el.options[el.selectedIndex].text : "";
+    };
+
+    const html = `
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Raport wyposażenia</title>
+${fontLink}
+<style>${style}</style>
+</head>
+<body>
+<h2>Weryfikacja wyposażenia</h2>
+<section>
+  <p><span class="label">Marka:</span> ${getValue("marka")}</p>
+  <p><span class="label">Model:</span> ${getValue("model")}</p>
+  <p><span class="label">Wersja:</span> ${getValue("wersja")}</p>
+  <p><span class="label">Generacja:</span> ${getValue("generacja")}</p>
+</section>
+
+<h2>Audio i multimedia</h2>
+<section>
+  <p><span class="label">Producent nagłośnienia:</span> ${getValue("naglosnienie")}</p>
+  <p>${[checked("aux"), checked("usb"), checked("carplay")].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Komfort</h2>
+<section>
+  <p>${[
+    checked("tap_material"),
+    checked("tap_skorzana"),
+    checked("tap_welurowa"),
+    checked("tap_polskory"),
+    checked("tap_alcantara")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Auta elektryczne</h2>
+<section>
+  <p>${[
+    checked("odzysk"),
+    checked("szybkie_ladowanie"),
+    checked("kabel")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Bezpieczeństwo</h2>
+<section>
+  <p>${[
+    checked("airbag_kierowca"),
+    checked("airbag_pasażer"),
+    checked("airbag_kolana")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Oświetlenie zewnętrzne</h2>
+<section>
+  <p><span class="label">Rodzaj reflektorów:</span> ${selectText("reflektory")}</p>
+  <p>${[
+    checked("przeciwmgielne"),
+    checked("dzien_led")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Wspomaganie kierowcy</h2>
+<section>
+  <p>${[
+    checked("czujniki_przod"),
+    checked("czujniki_tyl"),
+    checked("park_assist"),
+    checked("kamera_przod")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Opony i zawieszenie</h2>
+<section>
+  <p><span class="label">Rodzaj opon:</span> ${selectText("opony")}</p>
+  <p><span class="label">Czujniki w oponach:</span> ${selectText("czujniki_opony")}</p>
+  <p>${[
+    checked("zawieszenie_reg"),
+    checked("zawieszenie_sport")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Wyposażenie dodatkowe</h2>
+<section>
+  <p>${[
+    checked("wydech"),
+    checked("hak")
+  ].filter(Boolean).join("<br>")}</p>
+</section>
+
+<h2>Inne</h2>
+<section>
+  <p>${getValue("inne")}</p>
+</section>
+
+<h2>Kody wyposażenia dodatkowego</h2>
+<section>
+  <p>${getValue("kody")}</p>
+</section>
+</body>
+</html>`;
+
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "raport_wyposazenia.html";
+    link.click();
+  }
+</script>
+
+
+</body>
+</html>

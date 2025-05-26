@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raport oględzin pojazdu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #001f3f; /* granat */
+      color: #fff;
+      margin: 0;
+      padding: 1rem;
+    }
+    h2, h3 {
+      background-color: #0074D9; /* niebieski */
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+    input, textarea, select, table {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      background-color: #00509e; /* niebieski odcien na inputy */
+      color: #fff;
+    }
+    table {
+      background: #ffffff10;
+      border-collapse: collapse;
+      color: #fff;
+      width: 100%;
+    }
+      table input, table textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    th, td {
+      border: 1px solid #ffffff30;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    /* Szerokość pierwszej kolumny tabel w formularzu, aby pola nie były rozciągnięte */
+    table tr th:first-child,
+    table tr td:first-child {
+      width: 180px;
+      text-align: left;
+      padding-left: 1rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    button {
+      background-color: #0074D9;
+      color: white;
+      padding: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      width: 100%;
+      cursor: pointer;
+    }
+    textarea {
+      resize: vertical;
+    }
+    p {
+      line-height: 1.4;
+      margin: 0.5rem 0;
+    }
+    a {
+      color: #7FDBFF;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>Raport oględzin pojazdu</h2>
+  
+  <form id="raportForm">
+    <div class="section">
+      <h3>Dane pojazdu</h3>
+      <table>
+        <tr><th>VIN</th><td><input type="text" name="vin" placeholder="VIN" /></td></tr>
+        <tr><th>Marka</th><td><input type="text" name="marka" placeholder="Marka" /></td></tr>
+        <tr><th>Model</th><td><input type="text" name="model" placeholder="Model" /></td></tr>
+        <tr><th>Rok produkcji</th><td><input type="number" name="rok" placeholder="Rok produkcji" /></td></tr>
+        <tr><th>Pojemność silnika (cm3)</th><td><input type="number" name="pojemnosc" placeholder="Pojemność silnika (cm3)" /></td></tr>
+        <tr><th>Moc (KM)</th><td><input type="number" name="moc" placeholder="Moc (KM)" /></td></tr>
+        <tr><th>Przebieg (km)</th><td><input type="number" name="przebieg" placeholder="Przebieg (km)" /></td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>Dane sprzedającego</h3>
+      <table>
+        <tr><th>Imię</th><td><input type="text" name="imie" placeholder="Imię" /></td></tr>
+        <tr><th>Numer telefonu</th><td><input type="tel" name="telefon" placeholder="Numer telefonu" /></td></tr>
+        <tr><th>Adres e-mail</th><td><input type="email" name="email" placeholder="Adres e-mail" /></td></tr>
+        <tr><th>Kod pocztowy</th><td><input type="text" name="kod" placeholder="Kod pocztowy" /></td></tr>
+        <tr><th>Data oględzin</th><td><input type="date" name="dataOgl" /></td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>Grubość powłoki lakierniczej (µm)</h3>
+      <table>
+        <tr><th>Element</th><th>µm</th></tr>
+        <tr><td>Maska</td><td><input type="number" name="lakier_maska" /></td></tr>
+        <tr><td>Dach</td><td><input type="number" name="lakier_dach" /></td></tr>
+        <tr><td>Błotnik lewy przód</td><td><input type="number" name="lakier_blp" /></td></tr>
+      </table>
+      <textarea name="uwagiLakier" placeholder="Uwagi o lakierze"></textarea>
+    </div>
+
+    <div class="section">
+      <h3>Pomiar szczelin</h3>
+      <table>
+        <tr><th>Element</th><th>Szczelina</th></tr>
+        <tr><td>Błotnik prawy przód z maską</td><td><input type="text" name="szczeliny_bpp" /></td></tr>
+        <tr><td>Drzwi prawe przednie z błotnikiem</td><td><input type="text" name="szczeliny_dpp" /></td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>Pomiar opon</h3>
+      <table>
+        <tr>
+          <th>Pozycja</th><th>Producent</th><th>Model</th><th>Rozmiar</th><th>Data prod.</th><th>Bieżnik wew.</th><th>Bieżnik śr.</th><th>Bieżnik zew.</th>
+        </tr>
+        <tr>
+          <td>Przód L</td>
+          <td><input type="text" name="opona_PL_producent" /></td>
+          <td><input type="text" name="opona_PL_model" /></td>
+          <td><input type="text" name="opona_PL_rozmiar" /></td>
+          <td><input type="text" name="opona_PL_data" /></td>
+          <td><input type="text" name="opona_PL_bieżnik_wew" /></td>
+          <td><input type="text" name="opona_PL_bieżnik_śr" /></td>
+          <td><input type="text" name="opona_PL_bieżnik_zew" /></td>
+        </tr>
+        <tr>
+          <td>Tył L</td>
+          <td><input type="text" name="opona_TL_producent" /></td>
+          <td><input type="text" name="opona_TL_model" /></td>
+          <td><input type="text" name="opona_TL_rozmiar" /></td>
+          <td><input type="text" name="opona_TL_data" /></td>
+          <td><input type="text" name="opona_TL_bieżnik_wew" /></td>
+          <td><input type="text" name="opona_TL_bieżnik_śr" /></td>
+          <td><input type="text" name="opona_TL_bieżnik_zew" /></td>
+        </tr>
+        <tr>
+          <td>Tył P</td>
+          <td><input type="text" name="opona_TP_producent" /></td>
+          <td><input type="text" name="opona_TP_model" /></td>
+          <td><input type="text" name="opona_TP_rozmiar" /></td>
+          <td><input type="text" name="opona_TP_data" /></td>
+          <td><input type="text" name="opona_TP_bieżnik_wew" /></td>
+          <td><input type="text" name="opona_TP_bieżnik_śr" /></td>
+          <td><input type="text" name="opona_TP_bieżnik_zew" /></td>
+        </tr>
+        <tr>
+          <td>Przód P</td>
+          <td><input type="text" name="opona_PP_producent" /></td>
+          <td><input type="text" name="opona_PP_model" /></td>
+          <td><input type="text" name="opona_PP_rozmiar" /></td>
+          <td><input type="text" name="opona_PP_data" /></td>
+          <td><input type="text" name="opona_PP_bieżnik_wew" /></td>
+          <td><input type="text" name="opona_PP_bieżnik_śr" /></td>
+          <td><input type="text" name="opona_PP_bieżnik_zew" /></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>Oględziny szyb</h3>
+      <table>
+        <tr><th>Element</th><th>Producent</th><th>Numer</th><th>Rocznik</th></tr>
+        <tr>
+          <td>Szyba przednia</td>
+          <td><input type="text" name="szyba1_prod" /></td>
+          <td><input type="text" name="szyba1_num" /></td>
+          <td><input type="text" name="szyba1_rok" /></td>
+        </tr>
+        <tr>
+          <td>Szyba boczna prawa przednia</td>
+          <td><input type="text" name="szyba2_prod" /></td>
+          <td><input type="text" name="szyba2_num" /></td>
+          <td><input type="text" name="szyba2_rok" /></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>Ostatnie naprawy / przeglądy</h3>
+      <textarea name="ostatnie"></textarea>
+    </div>
+
+    <div class="section">
+      <h3>Planowane naprawy</h3>
+      <textarea name="planowane"></textarea>
+    </div>
+
+    <div class="section">
+      <h3>Uwagi i podsumowanie</h3>
+      <textarea name="uwagi"></textarea>
+    </div>
+
+    <p>
+      Historię auta zarejestrowanego w Polsce możesz łatwo sprawdzić w bazie
+      <a href="https://historiapojazdu.gov.pl" target="_blank" rel="noopener noreferrer">https://historiapojazdu.gov.pl</a>
+    </p>
+    <p>
+      Dane z powyższego raportu przedstawiają informację przekazane od właściciela, które nie są weryfikowane. Stan faktyczny przedstawia tylko informacje, które zostały potwierdzone podczas oględzin na dzień weryfikacji wpisanej w raport. Oględziny nie zostały przeprowadzone przez kwalifikowanego rzeczoznawcę oraz są danymi poglądowymi.
+    </p>
+
+    <button type="button" onclick="zapiszHTML()">Zapisz do HTML</button>
+  </form>
+
+  <script>
+    function zapiszHTML() {
+      const data = new FormData(document.getElementById('raportForm'));
+      let html = `
+      <!DOCTYPE html>
+      <html lang="pl">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Raport oględzin pojazdu</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #001f3f;
+            color: #fff;
+            margin: 0;
+            padding: 1rem;
+          }
+          h2, h3 {
+            background-color: #0074D9;
+            padding: 0.5rem;
+            border-radius: 8px;
+          }
+          table {
+            background: #ffffff10;
+            border-collapse: collapse;
+            color: #fff;
+            width: 100%;
+            margin-bottom: 1rem;
+          }
+          th, td {
+            border: 1px solid #ffffff30;
+            padding: 0.5rem;
+            text-align: left;
+          }
+          th {
+            width: 180px;
+          }
+          p {
+            margin: 0.5rem 0;
+            line-height: 1.4;
+          }
+          a {
+            color: #7FDBFF;
+            text-decoration: underline;
+          }
+          .section {
+            margin-bottom: 1.5rem;
+          }
+        </style>
+      </head>
+      <body>
+        <h2>Raport oględzin pojazdu</h2>
+      `;
+
+      // grupujemy pola w sekcje i generujemy tabele 1:1
+
+      // Dane pojazdu
+      html += '<div class="section"><h3>Dane pojazdu</h3><table>';
+      const vehicleFields = ['vin', 'marka', 'model', 'rok', 'pojemnosc', 'moc', 'przebieg'];
+      const vehicleLabels = ['VIN', 'Marka', 'Model', 'Rok produkcji', 'Pojemność silnika (cm3)', 'Moc (KM)', 'Przebieg (km)'];
+      for(let i=0; i<vehicleFields.length; i++) {
+        const val = data.get(vehicleFields[i]) || '';
+        html += `<tr><th>${vehicleLabels[i]}</th><td>${val}</td></tr>`;
+      }
+      html += '</table></div>';
+
+      // Dane sprzedającego
+      html += '<div class="section"><h3>Dane sprzedającego</h3><table>';
+      const sellerFields = ['imie', 'telefon', 'email', 'kod', 'dataOgl'];
+      const sellerLabels = ['Imię', 'Numer telefonu', 'Adres e-mail', 'Kod pocztowy', 'Data oględzin'];
+      for(let i=0; i<sellerFields.length; i++) {
+        const val = data.get(sellerFields[i]) || '';
+        html += `<tr><th>${sellerLabels[i]}</th><td>${val}</td></tr>`;
+      }
+      html += '</table></div>';
+
+      // Grubość powłoki lakierniczej
+      html += `<div class="section"><h3>Grubość powłoki lakierniczej (µm)</h3><table>
+        <tr><th>Element</th><th>µm</th></tr>
+        <tr><td>Maska</td><td>${data.get('lakier_maska') || ''}</td></tr>
+        <tr><td>Dach</td><td>${data.get('lakier_dach') || ''}</td></tr>
+        <tr><td>Błotnik lewy przód</td><td>${data.get('lakier_blp') || ''}</td></tr>
+      </table>
+      <p><strong>Uwagi o lakierze:</strong><br>${data.get('uwagiLakier') || ''}</p></div>`;
+
+      // Pomiar szczelin
+      html += `<div class="section"><h3>Pomiar szczelin</h3><table>
+        <tr><th>Element</th><th>Szczelina</th></tr>
+        <tr><td>Błotnik prawy przód z maską</td><td>${data.get('szczeliny_bpp') || ''}</td></tr>
+        <tr><td>Drzwi prawe przednie z błotnikiem</td><td>${data.get('szczeliny_dpp') || ''}</td></tr>
+      </table></div>`;
+
+      // Pomiar opon
+      html += `<div class="section"><h3>Pomiar opon</h3><table>
+        <tr>
+          <th>Pozycja</th><th>Producent</th><th>Model</th><th>Rozmiar</th><th>Data prod.</th><th>Bieżnik wew.</th><th>Bieżnik śr.</th><th>Bieżnik zew.</th>
+        </tr>`;
+
+      const positions = ['PL','TL','TP','PP'];
+      positions.forEach(pos => {
+        html += `<tr>
+          <td>${pos === 'PL' ? 'Przód L' : pos === 'TL' ? 'Tył L' : pos === 'TP' ? 'Tył P' : 'Przód P'}</td>
+          <td>${data.get(`opona_${pos}_producent`) || ''}</td>
+          <td>${data.get(`opona_${pos}_model`) || ''}</td>
+          <td>${data.get(`opona_${pos}_rozmiar`) || ''}</td>
+          <td>${data.get(`opona_${pos}_data`) || ''}</td>
+          <td>${data.get(`opona_${pos}_bieżnik_wew`) || ''}</td>
+          <td>${data.get(`opona_${pos}_bieżnik_śr`) || ''}</td>
+          <td>${data.get(`opona_${pos}_bieżnik_zew`) || ''}</td>
+        </tr>`;
+      });
+      html += `</table></div>`;
+
+      // Oględziny szyb
+      html += `<div class="section"><h3>Oględziny szyb</h3><table>
+        <tr><th>Element</th><th>Producent</th><th>Numer</th><th>Rocznik</th></tr>
+        <tr>
+          <td>Szyba przednia</td>
+          <td>${data.get('szyba1_prod') || ''}</td>
+          <td>${data.get('szyba1_num') || ''}</td>
+          <td>${data.get('szyba1_rok') || ''}</td>
+        </tr>
+        <tr>
+          <td>Szyba boczna prawa przednia</td>
+          <td>${data.get('szyba2_prod') || ''}</td>
+          <td>${data.get('szyba2_num') || ''}</td>
+          <td>${data.get('szyba2_rok') || ''}</td>
+        </tr>
+      </table></div>`;
+
+      // Ostatnie naprawy
+      html += `<div class="section"><h3>Ostatnie naprawy / przeglądy</h3><p>${data.get('ostatnie') || ''}</p></div>`;
+
+      // Planowane naprawy
+      html += `<div class="section"><h3>Planowane naprawy</h3><p>${data.get('planowane') || ''}</p></div>`;
+
+      // Uwagi i podsumowanie
+      html += `<div class="section"><h3>Uwagi i podsumowanie</h3><p>${data.get('uwagi') || ''}</p></div>`;
+
+      html += `
+        <p>
+          Historię auta zarejestrowanego w Polsce możesz łatwo sprawdzić w bazie
+          <a href="https://historiapojazdu.gov.pl" target="_blank" rel="noopener noreferrer">https://historiapojazdu.gov.pl</a>
+        </p>
+        <p>
+          Dane z powyższego raportu przedstawiają informację przekazane od właściciela, które nie są weryfikowane. Stan faktyczny przedstawia tylko informacje, które zostały potwierdzone podczas oględzin na dzień weryfikacji wpisanej w raport. Oględziny nie zostały przeprowadzone przez kwalifikowanego rzeczoznawcę oraz są danymi poglądowymi.
+        </p>
+      </body>
+      </html>
+      `;
+
+      const blob = new Blob([html], {type: 'text/html'});
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'raport_ogledzin_pojazdu.html';
+      link.click();
+    }
+  </script>
+</body>
+</html>
